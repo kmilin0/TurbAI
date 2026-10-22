@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import Chart from './components/Chart.jsx'
 import Phone from './components/Phone.jsx'
+import Dashboard from './components/Dashboard.jsx'
+import Savings from './components/Savings.jsx'
 import {
   nav, questions, steps, stats, compare, revenue,
   jobs, market, phases, mvp, faq, sources,
@@ -29,6 +31,21 @@ export default function App() {
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Las secciones aparecen suavemente al entrar en pantalla
+  useEffect(() => {
+    const els = document.querySelectorAll('main section:not(.hero) > .wrap')
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in')
+          io.unobserve(e.target)
+        }
+      })
+    }, { threshold: 0.12 })
+    els.forEach((el) => { el.classList.add('reveal'); io.observe(el) })
+    return () => io.disconnect()
   }, [])
 
   return (
@@ -61,7 +78,7 @@ export default function App() {
                 antes de la factura sorpresa, antes de la falla, antes de la emergencia.
               </p>
               <div className="hero-actions">
-                <a className="btn btn-primary" href="#lista">Unirme a la lista de espera</a>
+                <a className="btn btn-primary" href="#demo">Probar la demo en vivo</a>
                 <a className="btn btn-link-light" href="#como-funciona">Ver cómo funciona →</a>
               </div>
             </div>
@@ -109,6 +126,38 @@ export default function App() {
               <Phone />
               <p className="caption">Maqueta del MVP con valores de ejemplo.</p>
             </div>
+          </div>
+        </section>
+
+        {/* Demo interactiva: la casa simulada que detecta fallas */}
+        <section id="demo" className="demo">
+          <div className="wrap">
+            <div className="demo-head">
+              <div>
+                <p className="kicker">Demo en vivo</p>
+                <h2>Tú controlas la casa. TurbAI la vigila.</h2>
+              </div>
+              <ol className="demo-steps">
+                <li>Enciende o apaga equipos y mira cómo cambia el consumo.</li>
+                <li>Provoca una falla: un filtro sucio, una fuga, una nevera mal cerrada.</li>
+                <li>Espera unos segundos a que TurbAI la detecte y pide el técnico.</li>
+              </ol>
+            </div>
+            <Dashboard />
+          </div>
+        </section>
+
+        <section className="save">
+          <div className="wrap save-in">
+            <div>
+              <p className="kicker">Calcula tu ahorro</p>
+              <h2>Lo que no se mide, se paga.</h2>
+              <p className="body">
+                Ver el consumo a tiempo y corregir los equipos que se desvían es la forma más simple de bajar la
+                factura. Mueve la barra con el valor de tu recibo.
+              </p>
+            </div>
+            <Savings />
           </div>
         </section>
 

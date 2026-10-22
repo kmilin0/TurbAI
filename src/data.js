@@ -1,5 +1,6 @@
 export const nav = [
   { id: 'como-funciona', label: 'Cómo funciona' },
+  { id: 'demo', label: 'Demo en vivo' },
   { id: 'ejemplo', label: 'Un ejemplo' },
   { id: 'tecnicos', label: 'Técnicos' },
   { id: 'hoja-de-ruta', label: 'Hoja de ruta' },
