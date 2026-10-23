@@ -565,3 +565,11 @@ th[scope="row"] small { display: block; font-family: var(--mono); font-size: 11.
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Página independiente de la demo */
+.demo-page { padding-block: clamp(28px, 5vw, 56px) clamp(48px, 8vw, 96px); }
+.demo-bar { justify-content: space-between; }
+.demo-bar .nav-tools { margin-left: auto; }
+.demo-title { font-size: clamp(2rem, 5vw, 3.6rem); }
+.demo-page .sec-head { margin-bottom: clamp(24px, 4vw, 40px); }
+@media (max-width: 760px) { .demo-head { grid-template-columns: 1fr; } }
