@@ -4,12 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="TurbAI Home: tu casa te avisa antes de que se dañe. Plataforma de IA e IoT para entender el consumo del hogar y anticipar fallas." />
+    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
+    <meta property="og:title" content="TurbAI Home" />
+    <meta property="og:description" content="Tu casa te avisa antes de que se dañe." />
+    <meta property="og:type" content="website" />
     <title>TurbAI Home</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/assets/index-CC8Aa3lr.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-D2HAzlil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script>
+      // Aplica el tema guardado antes de pintar, para evitar el parpadeo
+      try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/assets/index-BF7obLOO.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BgvQcjL0.css">
   </head>
   <body>
     <div id="root"></div>
