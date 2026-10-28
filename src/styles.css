@@ -449,15 +449,6 @@ summary::after { content: '+'; font-family: var(--mono); font-weight: 400; color
 details[open] summary::after { transform: rotate(45deg); }
 details p { max-width: 60ch; padding-bottom: 22px; color: var(--muted); animation: rise .3s ease both; }
 
-/* ---------- Cierre ---------- */
-.final { text-align: center; }
-.final h2 { max-width: 16ch; margin-inline: auto; }
-.final .wrap > p:not(.caption) { max-width: 44ch; margin: 20px auto 0; color: var(--muted); }
-.waitlist { display: flex; gap: 6px; max-width: 440px; margin: 32px auto 0; padding: 5px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); transition: border-color .2s; }
-.waitlist:focus-within { border-color: var(--text); }
-.waitlist input { flex: 1; min-width: 0; padding: 0 16px; border: 0; background: transparent; color: var(--text); font: inherit; outline: none; }
-.waitlist-ok { margin-top: 32px; font-family: var(--mono); color: var(--ok); }
-
 footer { padding: 56px 0 48px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
 .footer-in { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 footer .brand { color: var(--text); margin-bottom: 10px; }

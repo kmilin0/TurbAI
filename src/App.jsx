@@ -3,25 +3,10 @@ import HeroPulse from './components/HeroPulse.jsx'
 import Problem from './components/Problem.jsx'
 import How from './components/How.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
-import Numbers from './components/Numbers.jsx'
-import Compare from './components/Compare.jsx'
-import Roadmap from './components/Roadmap.jsx'
-import { nav, faq, sources } from './data.js'
+import { nav } from './data.js'
 
 function Label({ n, children }) {
   return <p className="label"><b>{n}</b>{children}</p>
-}
-
-function Waitlist() {
-  const [sent, setSent] = useState(false)
-  if (sent) return <p className="waitlist-ok">✓ Listo. Te escribiremos cuando el MVP esté disponible.</p>
-  return (
-    <form className="waitlist" onSubmit={(e) => { e.preventDefault(); setSent(true) }}>
-      <label htmlFor="mail" className="sr-only">Correo electrónico</label>
-      <input id="mail" type="email" required placeholder="tu@correo.com" autoComplete="email" />
-      <button className="btn btn-primary" type="submit">Unirme</button>
-    </form>
-  )
 }
 
 export default function App() {
@@ -85,7 +70,6 @@ export default function App() {
           </nav>
           <div className="nav-tools">
             <ThemeToggle />
-            <a href="#lista" className="btn btn-primary btn-sm nav-cta">Lista de espera</a>
             <button className="burger" aria-label={open ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={open} onClick={() => setOpen(!open)}>
               <span /><span />
             </button>
@@ -131,34 +115,6 @@ export default function App() {
           </div>
         </section>
 
-        <section id="mas">
-          <div className="wrap">
-            <details className="more">
-              <summary>Más información: mercado, comparación, hoja de ruta y preguntas</summary>
-              <div className="more-body">
-                <Numbers />
-                <Compare />
-                <Roadmap />
-                <div>
-                  {faq.map((f) => (
-                    <details key={f.q}>
-                      <summary>{f.q}</summary>
-                      <p>{f.a}</p>
-                    </details>
-                  ))}
-                </div>
-              </div>
-            </details>
-          </div>
-        </section>
-
-        <section id="lista" className="final">
-          <div className="wrap">
-            <h2>Conoce tu consumo antes de que llegue el recibo.</h2>
-            <Waitlist />
-            <p className="caption">Formulario de demostración: el correo no se envía a ningún servidor.</p>
-          </div>
-        </section>
       </main>
 
       <footer>
@@ -168,12 +124,9 @@ export default function App() {
             <p>Proyecto de emprendimiento en Ingeniería de Software. © 2026.</p>
           </div>
           <div>
-            <p className="label">Fuentes</p>
-            <ul>
-              {sources.map((s) => (
-                <li key={s.url}><a href={s.url} target="_blank" rel="noreferrer noopener">{s.name} ↗</a></li>
-              ))}
-            </ul>
+            <p className="label">Integrantes</p>
+            <p>Joher Camilo Vargas Marchena</p>
+            <p>Kevin Esteban Rodríguez Guerrero</p>
           </div>
         </div>
       </footer>
