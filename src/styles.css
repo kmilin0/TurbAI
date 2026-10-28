@@ -254,8 +254,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .panel-head b { font-weight: 500; }
 .panel-head small { display: block; font-size: 12.5px; color: var(--faint); }
 
-.live { position: relative; }
-.live svg { width: 100%; height: auto; touch-action: pan-y; cursor: crosshair; }
+.live { position: relative; height: clamp(180px, 34vw, 260px); }
+.live svg { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; cursor: crosshair; }
 .live .grid { stroke: var(--line); }
 .live .area { fill: color-mix(in srgb, var(--text) 5%, transparent); }
 .live .line { fill: none; stroke: var(--text); stroke-width: 1.75; stroke-linejoin: round; }
@@ -410,6 +410,36 @@ tr.me .dot.yes { background: var(--accent); border-color: var(--accent); }
 .checks li { display: flex; gap: 10px; padding: 7px 0; font-size: 15px; }
 .checks li::before { content: '✓'; font-family: var(--mono); color: var(--ok); }
 
+/* ---------- Simulador de consumo ---------- */
+.sim { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: start; }
+.sim-list { display: grid; grid-auto-rows: 124px; gap: 10px; }
+.sim-row { padding: 14px 16px; display: grid; gap: 10px; transition: opacity .2s; }
+.sim-row.off { opacity: .55; }
+.sim-row-top { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 14px; }
+.sim-row-top b { font-weight: 500; }
+.sim-row-top small { display: block; color: var(--muted); font-size: 12.5px; }
+.sim-row-cost { font-family: var(--mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.sim input[type="range"] { width: 100%; accent-color: var(--accent); }
+
+.sim-out { padding: 24px; display: grid; gap: 22px; position: sticky; top: 88px; }
+.sim-total strong { display: block; font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 400; letter-spacing: -.04em; margin: 6px 0 2px; }
+.sim-total small, .sim-goal small, .sim-tariff small { color: var(--muted); font-size: 12.5px; }
+.sim-goal, .sim-tariff { display: grid; gap: 8px; font-size: 14px; }
+.sim-goal small.hot { color: var(--accent); }
+.sim-goalbar { height: 8px; border-radius: 999px; background: var(--bg-2); overflow: hidden; }
+.sim-goalbar i { display: block; height: 100%; background: var(--ok); border-radius: 999px; transition: width .25s, background .25s; }
+.sim-goalbar i.over { background: var(--accent); }
+
+.sim-bars { display: grid; gap: 8px; margin-top: 10px; }
+.sim-bars li { display: grid; grid-template-columns: 120px 1fr 40px; align-items: center; gap: 10px; font-size: 13px; }
+.sim-bars div { height: 8px; border-radius: 999px; background: var(--bg-2); overflow: hidden; }
+.sim-bars i { display: block; height: 100%; background: var(--accent); border-radius: 999px; transition: width .25s; }
+.sim-bars b { font-family: var(--mono); font-weight: 400; text-align: right; }
+.sim-tip { padding: 12px 14px; border-radius: 12px; background: var(--ok-soft); font-size: 14px; }
+
+.more > summary { cursor: pointer; font-size: 1.05rem; padding: 14px 0; }
+.more-body { display: grid; gap: 64px; padding-top: 32px; }
+
 /* ---------- Preguntas ---------- */
 details { border-bottom: 1px solid var(--line); }
 details:first-child { border-top: 1px solid var(--line); }
@@ -545,6 +575,12 @@ th[scope="row"] small { display: block; font-family: var(--mono); font-size: 11.
   .burger { display: grid; }
 }
 
+@media (max-width: 860px) {
+  .sim { grid-template-columns: 1fr; }
+  .sim-out { position: static; }
+  .sim-bars li { grid-template-columns: 100px 1fr 40px; }
+}
+
 @media (max-width: 640px) {
   .nav-cta, .dash-full { display: none; }
   .examples { grid-template-columns: 1fr 1fr; }
@@ -573,3 +609,76 @@ th[scope="row"] small { display: block; font-family: var(--mono); font-size: 11.
 .demo-title { font-size: clamp(2rem, 5vw, 3.6rem); }
 .demo-page .sec-head { margin-bottom: clamp(24px, 4vw, 40px); }
 @media (max-width: 760px) { .demo-head { grid-template-columns: 1fr; } }
+
+/* ---------- Páginas independientes ---------- */
+.demo-bar { justify-content: space-between; }
+.demo-bar .nav-tools { margin-left: auto; }
+.demo-title { font-size: clamp(2rem, 5vw, 3.6rem); }
+.demo-page .sec-head { margin-bottom: clamp(24px, 4vw, 40px); }
+.demo-instructions, .simulator-head p { color: var(--muted); }
+.simulator-page { padding: clamp(28px, 5vw, 56px) 0 clamp(48px, 8vw, 96px); }
+.simulator-head { grid-template-columns: 1fr auto; align-items: end; gap: 24px; }
+.simulator-title { font-size: clamp(2rem, 5vw, 3.6rem); }
+
+@media (max-width: 760px) {
+  .demo-head, .simulator-head { grid-template-columns: 1fr; }
+}
+
+/* ---------- Ajuste al viewport en escritorio ---------- */
+html.fit-on, html.fit-on body { height: 100%; overflow: hidden; }
+.fit.is-fit { display: flex; flex-direction: column; overflow: hidden; }
+.fit.is-fit .nav { position: static; flex: none; }
+.fit.is-fit main { flex: 1; min-height: 0; display: flex; padding: 14px 0 16px; }
+.fit.is-fit main > .wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; width: min(100% - 48px, 1500px); }
+.fit.is-fit .sec-head { flex: none; margin-bottom: 12px; gap: 4px; }
+.fit.is-fit .sec-head .label { display: none; }
+.fit.is-fit .sec-head h1, .fit.is-fit .sec-head h2 { font-size: 2rem; max-width: none; }
+
+.fit.is-fit .demo-page .wrap { gap: 12px; }
+.fit.is-fit .demo-head { justify-content: space-between; align-items: center; }
+.fit.is-fit .demo-title, .fit.is-fit .simulator-title { font-size: 2rem; }
+.fit.is-fit .demo-instructions, .fit.is-fit .simulator-head p { font-size: 14px; }
+.fit.is-fit .dash { flex: 1; min-height: 0; gap: 14px; padding: 18px 22px; grid-template-rows: auto auto auto minmax(0, 1fr) auto auto; }
+.fit.is-fit .scenarios { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.fit.is-fit .chip { flex: 0 0 auto; }
+.fit.is-fit .dash-main { min-height: 0; }
+.fit.is-fit .panel { display: flex; flex-direction: column; min-height: 0; }
+.fit.is-fit .live { flex: 1; min-height: 0; height: auto; }
+.fit.is-fit .feed ul { flex: 1; min-height: 0; max-height: none; overflow: auto; }
+.fit.is-fit .devs { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.fit.is-fit .dash-full { display: none; }
+
+.fit.is-fit .sim { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.fit.is-fit .sim-list { grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; align-items: stretch; gap: 10px; }
+.fit.is-fit .sim-row { align-self: stretch; }
+.fit.is-fit .sim-out { position: static; align-self: start; align-content: start; max-height: 100%; overflow: auto; }
+.fit.is-fit .sim-bars { align-content: start; }
+.sim-bars li { grid-template-columns: minmax(110px, 36%) 1fr 44px; }
+
+@media (max-width: 899px) {
+  .fit { zoom: 1 !important; height: auto !important; }
+  .fit.is-fit { display: block; overflow: visible; }
+  html.fit-on, html.fit-on body { height: auto; overflow: auto; }
+  .demo-page { padding-block: clamp(28px, 5vw, 56px) clamp(48px, 8vw, 96px); }
+  .fit.is-fit .nav { position: sticky; }
+  .fit.is-fit main { display: block; padding: 0; }
+  .fit.is-fit main > .wrap { width: min(100% - 32px, var(--wrap)); display: block; }
+  .fit.is-fit .sec-head { margin-bottom: clamp(24px, 4vw, 40px); gap: 22px; }
+  .fit.is-fit .sec-head .label { display: flex; }
+  .fit.is-fit .sec-head h1, .fit.is-fit .sec-head h2 { font-size: revert; }
+  .fit.is-fit .dash { display: grid; gap: 20px; padding: clamp(16px, 2.4vw, 28px); grid-template-rows: none; }
+  .fit.is-fit .dash-main { grid-template-columns: 1fr; }
+  .fit.is-fit .panel { display: block; padding: 18px; }
+  .fit.is-fit .live { flex: initial; height: clamp(180px, 34vw, 260px); }
+  .fit.is-fit .live svg { height: 100%; }
+  .fit.is-fit .feed ul { max-height: 390px; }
+  .fit.is-fit .devs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fit.is-fit .sim { display: grid; grid-template-columns: 1fr; }
+  .fit.is-fit .sim-list { grid-template-columns: 1fr; }
+  .fit.is-fit .sim-out { max-height: none; }
+  .sim-bars li { grid-template-columns: 100px 1fr 40px; }
+}
+
+@media (max-width: 640px) {
+  .fit.is-fit .devs { grid-template-columns: 1fr; }
+}

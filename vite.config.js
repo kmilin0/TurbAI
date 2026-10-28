@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'node:path'
 
-// Dos páginas: la landing (index.html) y la demo en vivo (demo.html)
+// Páginas de la landing, la demo y el simulador
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         demo: resolve(__dirname, 'demo.html'),
+        simulador: resolve(__dirname, 'simulador/index.html'),
       },
     },
   },

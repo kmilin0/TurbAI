@@ -2,14 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import HeroPulse from './components/HeroPulse.jsx'
 import Problem from './components/Problem.jsx'
 import How from './components/How.jsx'
-import AcousticScan from './components/AcousticScan.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
-import Chart from './components/Chart.jsx'
-import Savings from './components/Savings.jsx'
 import Numbers from './components/Numbers.jsx'
 import Compare from './components/Compare.jsx'
 import Roadmap from './components/Roadmap.jsx'
-import { nav, tiers, audiences, revenue, jobs, faq, sources } from './data.js'
+import { nav, faq, sources } from './data.js'
 
 function Label({ n, children }) {
   return <p className="label"><b>{n}</b>{children}</p>
@@ -100,15 +97,14 @@ export default function App() {
         <section className="hero">
           <div className="wrap hero-in">
             <div>
-              <p className="label"><span className="logo-dot" />IA + IoT para el hogar · Empieza gratis con tu celular</p>
-              <h1>Tu casa te avisa <span>antes de que se dañe.</span></h1>
+              <p className="label"><span className="logo-dot" />Consumo del hogar en tiempo real</p>
+              <h1>Deja de esperar el recibo <span>para saber cuánto gastas.</span></h1>
               <p className="lead">
-                TurbAI escucha, mide y entiende tu casa. Detecta una falla antes de que ocurra, te conecta con
-                un técnico y verifica con datos que quedó bien arreglada.
+                Cada electrodoméstico te muestra cuánta energía usa, ahora mismo y en pesos.
               </p>
               <div className="hero-actions">
-                <a className="btn btn-primary" href="#escaneo">Escanear con mi celular</a>
-                <a className="btn btn-line" href="demo.html">Probar la demo</a>
+                <a className="btn btn-primary" href="./demo.html">Ver una casa en vivo</a>
+                <a className="btn btn-line" href="./simulador/">Calcular mi consumo</a>
               </div>
             </div>
             <HeroPulse />
@@ -119,13 +115,9 @@ export default function App() {
           <div className="wrap">
             <div className="sec-head">
               <Label n="01">El problema</Label>
-              <h2>La casa se entera tarde.</h2>
+              <h2>El recibo llega tarde.</h2>
             </div>
             <Problem />
-            <p className="problem-end">
-              Hoy nos enteramos cuando ya llegó la factura, cuando ya se dañó el equipo,
-              cuando ya hay que llamar a alguien de urgencia.
-            </p>
           </div>
         </section>
 
@@ -133,216 +125,36 @@ export default function App() {
           <div className="wrap">
             <div className="sec-head">
               <Label n="02">Cómo funciona</Label>
-              <h2>Mide. Aprende lo normal. Te avisa.</h2>
+              <h2>Mide. Convierte. Te avisa.</h2>
             </div>
             <How />
           </div>
         </section>
 
-        <section id="escaneo">
+        <section id="mas">
           <div className="wrap">
-            <div className="sec-head">
-              <Label n="03">Escaneo por sonido · Funciona de verdad</Label>
-              <h2>Tu celular ya es un sensor.</h2>
-              <p className="lead">
-                Neveras, aires, lavadoras y bombas suenan distinto antes de dañarse. TurbAI guarda la huella de
-                sonido de cada equipo sano y te avisa cuando cambia. Sin comprar nada.
-              </p>
-            </div>
-            <div className="scan-in">
-              <div>
-                <ol className="scan-steps">
-                  <li><span>01</span>Elige el equipo y acerca el celular a unos 20 cm.</li>
-                  <li><span>02</span>Graba su huella sana: 5 segundos con el equipo funcionando bien.</li>
-                  <li><span>03</span>Escanea cuando quieras. TurbAI compara las dos huellas y te dice si algo cambió y dónde.</li>
-                </ol>
-                <p className="scan-tip">
-                  <b>Pruébalo ahora:</b> graba un ventilador, luego haz que una hoja de papel roce las aspas y vuelve a
-                  escanear. Si hay mucho ruido alrededor, usa los 5 ejemplos: nevera, aire, lavadora, ventilador
-                  y bomba de agua.
-                </p>
-              </div>
-              <AcousticScan />
-            </div>
-          </div>
-        </section>
-
-        <section id="demo">
-          <div className="wrap">
-            <div className="sec-head">
-              <Label n="04">Demo en vivo</Label>
-              <h2>Tú controlas la casa. TurbAI la vigila.</h2>
-              <p className="body">
-                Enciende equipos, provoca una falla y mira cómo TurbAI la detecta, pide al técnico y verifica con datos
-                que la reparación funcionó. Se abre en su propia pantalla, pensada para mostrarla en vivo.
-              </p>
-              <div><a className="btn btn-primary" href="demo.html">Abrir la demo en vivo</a></div>
-            </div>
-          </div>
-        </section>
-
-        <section id="ejemplo">
-          <div className="wrap">
-            <div className="sec-head">
-              <Label n="05">Un ejemplo</Label>
-              <h2>El aire acondicionado que avisó a tiempo.</h2>
-              <p className="lead">
-                Durante semanas consume lo mismo. Un día empieza a subir. TurbAI lo nota comparando contra su
-                propio historial. Arreglarlo a tiempo cuesta menos que arreglarlo roto.
-              </p>
-            </div>
-            <Chart />
-          </div>
-        </section>
-
-        <section id="niveles">
-          <div className="wrap">
-            <div className="sec-head">
-              <Label n="06">Niveles</Label>
-              <h2>Empieza gratis. Crece cuando lo necesites.</h2>
-            </div>
-            <div className="tiers">
-              {tiers.map((t) => (
-                <div key={t.name} className={`card tier ${t.free ? 'free' : ''}`}>
-                  <p className="label"><b>{t.tag}</b>{t.price}</p>
-                  <h3>{t.name}</h3>
-                  <ul className="checks">{t.items.map((i) => <li key={i}>{i}</li>)}</ul>
-                  {t.free && <a href="#escaneo">Probar el escaneo →</a>}
+            <details className="more">
+              <summary>Más información: mercado, comparación, hoja de ruta y preguntas</summary>
+              <div className="more-body">
+                <Numbers />
+                <Compare />
+                <Roadmap />
+                <div>
+                  {faq.map((f) => (
+                    <details key={f.q}>
+                      <summary>{f.q}</summary>
+                      <p>{f.a}</p>
+                    </details>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <p className="caption">El escaneo por sonido ya funciona en esta página. Lo demás es parte del MVP en desarrollo; los precios están por validar.</p>
-          </div>
-        </section>
-
-        <section id="ahorro">
-          <div className="wrap save-in">
-            <div className="sec-head">
-              <Label n="07">Calcula tu ahorro</Label>
-              <h2>Lo que no se mide, se paga.</h2>
-              <p className="lead">
-                Ver el consumo a tiempo y corregir los equipos que se desvían es la forma más simple de bajar
-                la factura, y la mejor preparación para una temporada de racionamiento.
-              </p>
-            </div>
-            <Savings />
-          </div>
-        </section>
-
-        <section id="para-quien">
-          <div className="wrap">
-            <div className="sec-head">
-              <Label n="08">Para quién</Label>
-              <h2>De la casa al conjunto residencial.</h2>
-            </div>
-            <div className="aud">
-              {audiences.map((a) => (
-                <div key={a.name}>
-                  <h3>{a.name}</h3>
-                  <p>{a.text}</p>
-                  <ul>{a.points.map((p) => <li key={p}>{p}</li>)}</ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="oportunidad">
-          <div className="wrap">
-            <div className="sec-head">
-              <Label n="09">La oportunidad</Label>
-              <h2>Los datos ya existen. Nadie te los explica.</h2>
-              <p className="lead">
-                Medidores, facturas y sensores ya generan información sobre tu casa. Lo que falta es alguien
-                que la lea a tiempo y te diga qué hacer, en palabras simples.
-              </p>
-            </div>
-            <Numbers />
-          </div>
-        </section>
-
-        <section id="diferencia">
-          <div className="wrap">
-            <div className="sec-head">
-              <Label n="10">Qué nos hace distintos</Label>
-              <h2>Otros miden. TurbAI cierra el ciclo.</h2>
-              <p className="lead">
-                Detectar, explicar, conectar con un técnico y verificar que quedó bien. Y empezar gratis, con el
-                celular, en Colombia.
-              </p>
-            </div>
-            <Compare />
-          </div>
-        </section>
-
-        <section id="tecnicos">
-          <div className="wrap two">
-            <div className="sec-head">
-              <Label n="11">Red de técnicos</Label>
-              <h2>La IA detecta. Las personas resuelven. Los datos lo comprueban.</h2>
-              <p className="lead">
-                Después de cada reparación, TurbAI sigue midiendo el equipo. Si el consumo vuelve a su patrón, la
-                reparación queda verificada y el técnico gana reputación. Si no, el técnico regresa sin costo.
-              </p>
-            </div>
-            <div className="jobs">
-              <div>
-                <p className="label">En la red de TurbAI</p>
-                <ul className="tags">{jobs.field.map((j) => <li key={j}>{j}</li>)}</ul>
               </div>
-              <div>
-                <p className="label">En el equipo de TurbAI</p>
-                <ul className="tags">{jobs.tech.map((j) => <li key={j}>{j}</li>)}</ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="modelo">
-          <div className="wrap two">
-            <div className="sec-head">
-              <Label n="12">Modelo de negocio</Label>
-              <h2>Un mismo dato, cinco formas de sostener el proyecto.</h2>
-            </div>
-            <ol className="list">
-              {revenue.map((r, i) => (
-                <li key={r.title}><span>0{i + 1}</span><div><b>{r.title}</b><small>{r.text}</small></div></li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section id="hoja-de-ruta">
-          <div className="wrap">
-            <div className="sec-head">
-              <Label n="13">Hoja de ruta</Label>
-              <h2>Empezamos pequeño. Crecemos por fases.</h2>
-            </div>
-            <Roadmap />
-          </div>
-        </section>
-
-        <section id="preguntas">
-          <div className="wrap two">
-            <div className="sec-head">
-              <Label n="14">Preguntas</Label>
-              <h2>Preguntas frecuentes.</h2>
-            </div>
-            <div>
-              {faq.map((f) => (
-                <details key={f.q}>
-                  <summary>{f.q}</summary>
-                  <p>{f.a}</p>
-                </details>
-              ))}
-            </div>
+            </details>
           </div>
         </section>
 
         <section id="lista" className="final">
           <div className="wrap">
-            <h2>De una casa que reacciona a una casa que previene.</h2>
-            <p>Déjanos tu correo y te contamos cuando TurbAI esté listo para probar en tu casa.</p>
+            <h2>Conoce tu consumo antes de que llegue el recibo.</h2>
             <Waitlist />
             <p className="caption">Formulario de demostración: el correo no se envía a ningún servidor.</p>
           </div>

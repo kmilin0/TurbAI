@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useHomeSim, clock, cop, TARIFF, THRESHOLD, TICK_MIN, VERIFY } from '../sim.js'
 
-const W = 720
-const H = 240
 const PAD = 10
 
 // Promedio móvil: es lo que TurbAI compara contra el patrón de cada equipo
@@ -11,7 +9,26 @@ const rolling = (trace, n) => trace.map((_, i) => {
   return part.reduce((s, p) => s + p.v, 0) / part.length
 })
 
+function useBox() {
+  const ref = useRef(null)
+  const [size, setSize] = useState({ w: 720, h: 240 })
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const ro = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect
+      if (width > 0 && height > 0) setSize({ w: Math.round(width), h: Math.round(height) })
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  return [ref, size]
+}
+
 function LiveChart({ points, dev, minutes }) {
+  const [box, { w: W, h: H }] = useBox()
   const svg = useRef(null)
   const [hover, setHover] = useState(null)
   const n = points.length
@@ -33,7 +50,7 @@ function LiveChart({ points, dev, minutes }) {
   }
 
   return (
-    <div className="live">
+    <div className="live" ref={box}>
       <svg
         ref={svg} viewBox={`0 0 ${W} ${H}`} onPointerMove={onMove} onPointerLeave={() => setHover(null)}
         role="img" aria-label={dev ? `Consumo promedio de ${dev.name} frente a su patrón aprendido` : 'Potencia total de la casa en tiempo real'}
